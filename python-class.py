@@ -95,7 +95,7 @@ print("\n",prof.annual_salary)
 
 """
 Decoratory in python:
-@property:- used to change simple class method to just property of the class if this method don'e perform action rather than calculation 
+@property:- used to change simple class method to just property of the class if this method don't perform action rather than calculation 
 @classmethod:- used to pass class as argument for class method that used to get info about the class itself
 @staticmethod:- used to conviy info about the class but don't use neither class properties nor class method
 #instancemethod:- used to pass instance(object) of the class to access propertiy and method of the instance for its usecase(every method in class is by default such type of method )

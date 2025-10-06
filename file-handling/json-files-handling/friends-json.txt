@@ -1,0 +1,14 @@
+{
+    "personOne":{
+        "name":"melaku",
+        "dgree":"mechanical engineering"
+    },
+    "personTwo":{
+        "name":"Dagim",
+        "dgree":"mechanical engineering"
+    },
+    "personThree":{
+        "name":"danel",
+        "degree":"machine learning engineer"
+    }
+}

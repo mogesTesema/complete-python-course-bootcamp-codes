@@ -28,7 +28,7 @@ with open("file-handling/isris.csv","r") as isris:
     isris_data = isris.readlines()
 isrises = []
 for row in isris_data[1:]:
-    sepal_length, sepal_width, petal_length, petal_width, species = row.strip().split(",")
+    sepal_length, sepal_width, petal_length, petal_width, species = row.strip() .split(",")
     isris_dict = {
     "sepal_length":int(float(sepal_length)),
     "sepal_width":float(sepal_width),

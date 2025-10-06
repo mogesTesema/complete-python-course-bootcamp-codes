@@ -1,0 +1,2 @@
+this is cool feature of context manager.
+we are ganna use context manager,the best built in feature that manage file handling in python using with keyword

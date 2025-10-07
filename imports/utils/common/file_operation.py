@@ -5,4 +5,4 @@ def save_to_file(content,filename):
 def read_file(filename):
     with open(filename) as file:
         return file.read()
-print("imported module")
+print(__name__)

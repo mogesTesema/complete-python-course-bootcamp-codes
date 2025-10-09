@@ -13,3 +13,4 @@ with open("file-handling/nearby_friends_file","a") as nearby_friends_file:
         print(f"{friend} is nearby! Meet up with them.")
         nearby_friends_file.write(f"{friend}\n")
 
+  

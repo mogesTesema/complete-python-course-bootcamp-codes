@@ -84,7 +84,7 @@ print(len(ford.cars),len(ford),len(ford.cars)==len(ford))
 print(ford[0]) # == print(Garage.__getitem__(ford,0))
 print(Garage.__getitem__(ford,0))
 print("\n"*5)
-for car in ford: # len and getitem dinder method must created in objects class to use the object as iterable
+for car in ford: # len and getitem dunder method must created in objects class to use the object as iterable
     print(car)
 print(ford)
 

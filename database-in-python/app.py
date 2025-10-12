@@ -1,4 +1,4 @@
-from utils import database_json
+from utils import database_sqlite
 USER_CHOICE = """
 Enter:
 - 'a': to add an new book
@@ -8,7 +8,7 @@ Enter:
 - 'q': to quit
 ENTER CHOICE: """
 def menu(): 
-    database_json.create_book_table()
+    database_sqlite.create_book_table()
     user_input = input(USER_CHOICE)
     while user_input != 'q':
         if user_input == 'a':
@@ -29,21 +29,21 @@ def menu():
 def prompt_add_book():
     name = input("Enter the new book name: ")
     author = input("Enter the new book author: ")
-    database_json.add_book(name,author)
+    database_sqlite.add_book(name,author)
 
 def list_books():
-    books = database_json.get_all_books()
+    books = database_sqlite.get_all_books()
     for book in books:
-        read = "YES" if book["read"]  else "NO"
+        read = "YES" if book["read"]==1  else "NO"
         print(f"{book['name']} by {book['author']},read: {read}")
         
 
 def prompt_read_book():
     name = input("Enter the name of the book you just finished reading: ")
-    database_json.mark_book_as_read(name)
+    database_sqlite.mark_book_as_read(name)
 
 def prompt_delete_book():
     name = input("Enter the name of the book you wish to delete: ")
-    database_json.delete_book(name)
+    database_sqlite.delete_book(name)
 
 menu()

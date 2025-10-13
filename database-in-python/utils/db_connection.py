@@ -1,5 +1,15 @@
 import sqlite3
-def get_cursor():
-    connection = sqlite3.connect("data.db")
-    cursor = connection.cursor()
-    return cursor
+class DatabaseConnection:
+    def __init__(self,host_storage):
+        self.connection = None
+        self.host_storage = host_storage
+    def __enter__(self):
+        self.connection = sqlite3.connect(self.host_storage,timeout=10)
+        return self.connection
+    def __exit__(self,exc_type,exc_val,exc_tb):
+        if exc_type or exc_val or exc_tb:
+            self.connection.rollback()
+            self.connection.close()
+        else:
+            self.connection.commit()
+            self.connection.close()

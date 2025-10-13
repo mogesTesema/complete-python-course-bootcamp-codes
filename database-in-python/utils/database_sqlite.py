@@ -1,17 +1,16 @@
-import sqlite3
+from .db_connection import DatabaseConnection
 
 """"
 Concerned with storing and retrieving books form a sqlite database.
 """
 
-book_file = "utils/books.json"
+book_store = "data.db"
 
 def create_book_table():
-    connection = sqlite3.connect("data.db")
-    cursor = connection.cursor()
-    cursor.execute("CREATE TABLE IF NOT EXISTS books(name text primary key,author text,read integer)")
-    connection.commit()
-    connection.close()
+    with DatabaseConnection(book_store) as connection:
+        cursor = connection.cursor()
+        cursor.execute("CREATE TABLE IF NOT EXISTS books(name text primary key,author text,read integer)")
+        
         
 
 def add_book(name,author):
@@ -21,28 +20,28 @@ def add_book(name,author):
         cursor.execute(f'INSERT INTO books VALUES("{name}","{injection_command},"{0}")') # leads to         cursor.execute(f'INSERT INTO books VALUES("{name}","",0)DROP TABLE books;,"{0}")')
     """
     
-    with sqlite3.connect("data.db") as connection:
+    with DatabaseConnection(book_store) as connection:
         cursor = connection.cursor()
         try:
             cursor.execute("INSERT INTO books VALUES(?,?,0)",(name,author))
-        except():
-            print(f"{name} is already exist.")
-        connection.commit()
+        except Exception as e:
+            print(f"{name} is already exist. {e}")
+       
 
 
 def get_all_books():
     books = []
     try:
-        with sqlite3.connect("data.db") as connection:
+        with DatabaseConnection(book_store) as connection:
             cursor = connection.cursor()
             cursor.execute("SELECT * FROM books")
             books = cursor.fetchall()
-            zipped_book = []
-            meta_data = ["name","author","read"]
-            for book in books:
-                zipped_book.append(dict(zip(meta_data,book)))
-            
-            return zipped_book
+        zipped_book = []
+        meta_data = ["name","author","read"]
+        for book in books:
+            zipped_book.append(dict(zip(meta_data,book)))
+        
+        return zipped_book
 
         
     except():
@@ -51,17 +50,17 @@ def get_all_books():
 
 
 def mark_book_as_read(name):
-    with sqlite3.connect("data.db") as connection:
+    with DatabaseConnection(book_store) as connection:
         cursor = connection.cursor()
         cursor.execute("UPDATE books SET read=1 where name=?",(name,))
-        connection.commit()
+
 
 
     
 
 
 def delete_book(name):
-    with sqlite3.connect("data.db") as connection:
+    with DatabaseConnection(book_store) as connection:
         cursor = connection.cursor()
         cursor.execute("DELETE FROM books where name=?",(name,))
 

@@ -1,4 +1,5 @@
 from .db_connection import DatabaseConnection
+from typing import List,Dict,Union
 
 """"
 Concerned with storing and retrieving books form a sqlite database.
@@ -6,14 +7,15 @@ Concerned with storing and retrieving books form a sqlite database.
 
 book_store = "data.db"
 
-def create_book_table():
+
+def create_book_table() -> None:
     with DatabaseConnection(book_store) as connection:
         cursor = connection.cursor()
         cursor.execute("CREATE TABLE IF NOT EXISTS books(name text primary key,author text,read integer)")
         
         
 
-def add_book(name,author):
+def add_book(name:str, author:str) -> None:
     """
     SQL Injection:
         injection_command = ",0);DROP TABLE books;
@@ -29,7 +31,7 @@ def add_book(name,author):
        
 
 
-def get_all_books():
+def get_all_books() -> List[Dict]:
     books = []
     try:
         with DatabaseConnection(book_store) as connection:
@@ -49,7 +51,7 @@ def get_all_books():
 
 
 
-def mark_book_as_read(name):
+def mark_book_as_read(name:str) -> None:
     with DatabaseConnection(book_store) as connection:
         cursor = connection.cursor()
         cursor.execute("UPDATE books SET read=1 where name=?",(name,))
@@ -59,7 +61,7 @@ def mark_book_as_read(name):
     
 
 
-def delete_book(name):
+def delete_book(name:str) -> None:
     with DatabaseConnection(book_store) as connection:
         cursor = connection.cursor()
         cursor.execute("DELETE FROM books where name=?",(name,))

@@ -1,4 +1,5 @@
 import sqlite3
+
 """"
 Concerned with storing and retrieving books form a sqlite database.
 """
@@ -8,7 +9,7 @@ book_file = "utils/books.json"
 def create_book_table():
     connection = sqlite3.connect("data.db")
     cursor = connection.cursor()
-    cursor.execute("CREATE TABLE IF NOT EXISTS books(name text,author text,read integer)")
+    cursor.execute("CREATE TABLE IF NOT EXISTS books(name text primary key,author text,read integer)")
     connection.commit()
     connection.close()
         
@@ -19,9 +20,13 @@ def add_book(name,author):
         injection_command = ",0);DROP TABLE books;
         cursor.execute(f'INSERT INTO books VALUES("{name}","{injection_command},"{0}")') # leads to         cursor.execute(f'INSERT INTO books VALUES("{name}","",0)DROP TABLE books;,"{0}")')
     """
+    
     with sqlite3.connect("data.db") as connection:
         cursor = connection.cursor()
-        cursor.execute("INSERT INTO books VALUES(?,?,0)",(name,author))
+        try:
+            cursor.execute("INSERT INTO books VALUES(?,?,0)",(name,author))
+        except():
+            print(f"{name} is already exist.")
         connection.commit()
 
 

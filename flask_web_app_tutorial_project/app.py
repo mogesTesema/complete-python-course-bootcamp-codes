@@ -20,21 +20,23 @@ def posted(post_id):
     if not post:
         return render_template("404.html",message=f'A post with id {post_id} was not found.')
     return render_template("post.html",post=post)
-@app.route("/post/form")
 
+@app.route("/post/form")
 def form():
     return render_template("create.jinja2")
 
 #127.0.0.1:5000/post/create?title=something&content=something_else
-@app.route("/post/create", methods=["POST"])
+@app.route("/post/create", methods=["GET","POST"])
 def create():
     # title = request.args.get("title")
     # content = request.args.get("content")
-    title = request.form.get("title")
-    content = request.form.get("content")
-    post_id = len(posts)
-    posts[post_id] = {"post_id":post_id, "title":title, "content":content}
-    return redirect(url_for("posted",post_id=post_id))
+    if request.method == "POST":
+        title = request.form.get("title")
+        content = request.form.get("content")
+        post_id = len(posts)
+        posts[post_id] = {"post_id":post_id, "title":title, "content":content}
+        return redirect(url_for("posted",post_id=post_id))
+    return render_template("create.jinja2")
 
 if __name__ == "__main__":
     app.run(debug=True )

@@ -10,16 +10,20 @@ user = {
 
 def user_has_permission(func):
     @functools.wraps(func) # hey secure_func keep the name and doc information of this function func instead of injecting your's information, just you are wrapper function.
-    def secure_func(panel):
+    def secure_func(*args,**kwargs):
         if user.get('access_level') == 'admin':
-            return func(panel)
+            return func(*args,**kwargs)
         
         raise CustomPermissionError
     return secure_func
 @user_has_permission
 def my_function(panel):
     return f"password for {panel} panel is 1234."
+
+def another():
+    return "another function"
 print(my_function("movies"))
+print(another())
 print("\n"*5)
 try:
     print("function has been called")

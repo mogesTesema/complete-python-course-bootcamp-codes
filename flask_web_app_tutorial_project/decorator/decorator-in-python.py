@@ -8,19 +8,24 @@ user = {
 }
 
 def user_has_permission(func):
-    if user.get('access_level') == 'admin':
-        return func
-    raise CustomPermissionError
-
+    def secure_func():
+        if user.get('access_level') == 'admin':
+            return func()
+        
+        raise CustomPermissionError
+    return secure_func
+@user_has_permission
 def my_function():
     return "password for admin panel is 1234."
-user_has_permission(my_function)()
+print(my_function())
 print("\n"*5)
 try:
-    my_secure_function = user_has_permission(my_function)
     print("function has been called")
-    print(my_secure_function())
+    print(my_function())
 except CustomPermissionError as e:
     print(f"a permission error occured in custompermissionerror: {e}")
 except Exception as e:
     print(f"something went wrong: {e}")
+
+print(my_function.__name__)
+

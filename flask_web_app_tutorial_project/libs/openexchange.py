@@ -1,6 +1,7 @@
 import requests
 import os
-
+# import functools
+from cachetools import cached,TTLCache
 class OpenExchangeClient:
     ENDPOINT = os.getenv("ENDPOINT")
     # print(f"base_url: {ENDPOINT}")
@@ -8,6 +9,8 @@ class OpenExchangeClient:
         self.app_id = os.getenv("APP_ID")
         # print(f"app_id: {self.app_id}")
     @property
+    # @functools.lru_cache(maxsize=2)
+    @cached(cache=TTLCache(maxsize=2,ttl=900))
     def latest(self):
         return requests.get(f"{self.ENDPOINT}?app_id={self.app_id}").json()
 

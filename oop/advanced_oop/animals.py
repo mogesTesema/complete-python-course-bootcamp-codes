@@ -3,7 +3,7 @@ from abc import ABCMeta, abstractmethod # import classes and functions from abst
 
 
 
-class Animal:
+class Animal(metaclass=ABCMeta):
     def walk(self):
         return"walking..."
     # def num_legs(self):

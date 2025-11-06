@@ -4,4 +4,4 @@ class Store:
     def to_dict(self):
         pass
     def save(self):
-        Database.insert(self.to_dict())
+        Database.insert(self.to_dict()) 

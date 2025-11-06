@@ -7,7 +7,7 @@ class Database:
     @classmethod
     def finder(cls,find):
         return [user for user in cls.content["users"] if user == find]
-        
+
     @classmethod
-    def remove(cls):
-        cls.content["users"] = [user for user in cls.content["users"] if not self.finder(user)]
+    def remove(cls,to_delete):
+        cls.content["users"] = [user for user in cls.content["users"] if not cls.finder(to_delete)]

@@ -15,6 +15,12 @@ class TestFunctions(TestCase):
         self.assertAlmostEqual(divide(dividend,divisor),expected_result,delta=0.001)
     def test_divide_dividend_zero(self):
         dividend = 0
-        divisor = 5
+        divisor = 1
         expected_result = 0
         self.assertAlmostEqual(divide(dividend,divisor),expected_result,delta=0.1)
+    
+    def test_divide_error_on_zero(self):
+        self.assertRaises(ValueError,lambda:divide(20,0))
+        with self.assertRaises(ValueError):
+            divide(23,0)
+

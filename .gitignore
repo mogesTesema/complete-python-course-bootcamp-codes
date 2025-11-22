@@ -1,6 +1,7 @@
 .cph
-.vscode
+*.vscode
 *.pyc
 .env
+/socialMediaAPI/uploadedfiles
 
 

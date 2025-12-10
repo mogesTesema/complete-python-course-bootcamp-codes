@@ -1,9 +1,9 @@
 import time
 from datetime import datetime,timezone,timedelta
 print(datetime.now(timezone.utc))
-today = datetime.now()
+today = datetime.now(tz=timezone.utc)
 
-tomorrow = today + timedelta(days=366)
+tomorrow = today + timedelta(days=1)
 print(today,"\n",tomorrow,"\n", tomorrow-today)
 print(today.strftime("%d-%m-%Y %H:%M:%S"))
 

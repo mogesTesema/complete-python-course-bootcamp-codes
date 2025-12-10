@@ -10,10 +10,13 @@ def get_friend():
 # print(next(c))
 
 def greet(g):
+    index = 0
     while True:
         try:
             friend = next(g)
             yield f"Hello {friend}"
+            print(f"{index} done")
+            index += 1
         except StopIteration:
             pass
 
